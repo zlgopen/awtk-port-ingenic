@@ -1,0 +1,43 @@
+<window>
+	<view x="0" y="0" w="100%" h="100%">
+
+		<label name="label_wash_time" style="wash_time" x="55" y="65" w="300" h="110"/>
+		<label name="label_wash_name" style="wash_name" x="485" y="85" w="200" h="60"/>
+
+		<button name="btn_wash_function" x="right:5" y="30" w="126" h="126">
+			<image image="func_btn" x="0" y="0" w="100%" h="100%" draw_type="center"/>
+			<label style="wash_function" x="c" y="m:2" w="80" h="80" tr_text="wash_function"/>
+		</button>
+
+		<button name="btn_wash_switch" x="right:25" y="bottom:5" w="172" h="172" enable_long_press="true">
+			<image name="image_wash_switch" image="start" x="0" y="0" w="100%" h="100%" draw_type="center"/>
+			<label name="label_wash_switch" style="wash_switch" x="22" y="m:2" w="100" h="100"  tr_text="wash_start"/>
+		</button>
+
+		<view name="view_wash_progress" x="75" y="bottom:20" w="960" h="70" visible="false">
+			<progress_bar name="progress_bar_wash" style="wash_progress" x="0" y="0" w="960" h="16" />
+			<label name="label_wash_status" style="wash_status" x="5" y="bottom:0" w="100" h="40" tr_text="wash_status_run"/>
+		</view>
+
+		<label name="label_wash_detail" style="wash_status" x="80" y="bottom:20" w="140" h="40" />
+		<view name="view_wash_step" x="458" y="bottom:0" w="510" h="110" children_layout="default(r=1,c=3,s=0)">
+			<button name="btn_step_01">
+				<label name="label_step_time" style="step_wash_time" x="right:86" y="bottom:65"           w="30" h="40" />
+				<label name="label_step_unit" style="step_wash_unit" x="88" y="bottom:64" w="30"          h="40" />
+				<label name="label_step_name" style="step_wash_name" x="c" y="bottom:18" w="100%"         h="40" />
+			</button>
+			<image image="vertical_divide" x="170" y="bottom:0" w="2" h="122" floating="true"/>
+			<button name="btn_step_02">
+				<label name="label_step_time" style="step_wash_time" x="right:86" y="bottom:65"           w="30" h="40"/>
+				<label name="label_step_unit" style="step_wash_unit" x="88" y="bottom:64" w="30"          h="40"/>
+				<label name="label_step_name" style="step_wash_name" x="c" y="bottom:18" w="100%"         h="40"/>
+			</button>
+			<image image="vertical_divide" x="right:170" y="bottom:0" w="2" h="122" floating="true"/>
+			<button name="btn_step_03">
+				<label name="label_step_time" style="step_wash_time" x="right:86" y="bottom:65"           w="30" h="40"/>
+				<label name="label_step_unit" style="step_wash_unit" x="88" y="bottom:64" w="30"          h="40"/>
+				<label name="label_step_name" style="step_wash_name" x="c" y="bottom:18" w="100%"         h="40"/>
+			</button>
+		</view>
+	</view>
+</window>

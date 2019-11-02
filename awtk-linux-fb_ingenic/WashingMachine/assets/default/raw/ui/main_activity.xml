@@ -1,0 +1,86 @@
+<window>
+	<view x="0" y="0" w="1280" h="350">
+<!--view window -->
+		<view x="0" y="bottom:0" w="100%" h="350">
+			<!--洗衣功能列表 -->
+			<view name="view_wash_func_item" x="1" y="bottom:30" w="1278" h="230">
+				<list_view_h x="0" y="0" w="100%" h="100%" item_width="210" spacing="4">
+					<scroll_view name="scroll_view" x="0" y="0" w="100%" h="100%">
+						<list_item style="func_item">
+							<image image="func_01" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_01"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_02" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_02"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_03" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_03"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_04" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_04"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_05" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_05"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_06" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_06"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_07" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_07"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_08" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_08"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_09" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_09"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_10" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_10"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_11" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_11"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_12" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_12"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_13" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_13"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_14" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_14"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_15" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_15"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_16" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_16"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_17" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_17"/>
+						</list_item>
+						<list_item style="func_item">
+							<image image="func_18" x="c" y="0" w="162" h="162" draw_type="scale"/>
+							<label name="label_func_name" style="func_name" x="c" y="bottom" w="162" h="50" tr_text="func_18"/>
+						</list_item>
+					</scroll_view>
+				</list_view>
+			</view>
+		</view>
+	</view>
+</window>

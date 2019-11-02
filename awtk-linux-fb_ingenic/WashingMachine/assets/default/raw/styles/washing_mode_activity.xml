@@ -1,0 +1,37 @@
+<label>
+	<style name="wash_function">
+		<normal text_color="black" font_size="36"/>
+	</style>
+	<style name="wash_switch">
+		<normal text_color="black" font_size="48"/>
+	</style>
+	<style name="wash_status">
+		<normal text_color="black" font_size="34"/>
+	</style>
+	<style name="wash_time">
+		<normal text_color="white" font_size="136" text_align_h="left" />
+	</style>
+	<style name="wash_name">
+		<normal text_color="white" font_size="70" text_align_h="left" />
+	</style>
+	<style name="step_wash_time">
+		<normal text_color="black" font_size="28" />
+		<disable text_color="black" font_size="28" />
+	</style>
+	<style name="step_wash_unit">
+		<normal text_color="black" font_size="22" text_align_h="left" />
+		<disable text_color="black" font_size="22" text_align_h="left" />
+	</style>
+	<style name="step_wash_name">
+		<normal text_color="black" font_size="32"/>
+		<disable text_color="black" font_size="32"/>
+	</style>
+
+</label>
+
+<progress_bar>
+	<style name="wash_progress" bg_image="progress_bar_bg" fg_image="gradient_color"  bg_image_draw_type="scale" fg_image_draw_type="scale" max_value="10000">
+		<normal />
+	</style>
+</progress_bar>
+

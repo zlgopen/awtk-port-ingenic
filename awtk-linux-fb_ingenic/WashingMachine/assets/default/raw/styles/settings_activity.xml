@@ -1,0 +1,58 @@
+<button>
+	<style name="setting_childlock" >
+		<normal bg_image="childlock" bg_image_draw_type="scale"/>
+	    <pressed bg_image="childlock_select" bg_image_draw_type="scale"/>
+		<over bg_image="childlock" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_light">
+		<normal bg_image="light" bg_image_draw_type="scale"/>
+	    <pressed bg_image="light_select" bg_image_draw_type="scale"/>
+		<over bg_image="light" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_wifi">
+		<normal bg_image="wifisetting" bg_image_draw_type="scale"/>
+	    <pressed bg_image="wifisetting_select" bg_image_draw_type="scale"/>
+		<over bg_image="wifisetting" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_waterbulter">
+		<normal bg_image="waterbulter" bg_image_draw_type="scale"/>
+	    <pressed bg_image="waterbulter_select" bg_image_draw_type="scale"/>
+		<over bg_image="waterbulter" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_mute">
+		<normal bg_image="mute" bg_image_draw_type="scale"/>
+	    <pressed bg_image="mute_select" bg_image_draw_type="scale"/>
+		<over bg_image="mute" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_brightness">
+		<normal bg_image="brightness" bg_image_draw_type="scale"/>
+	    <pressed bg_image="brightness_select" bg_image_draw_type="scale"/>
+		<over bg_image="brightness" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_contact">
+		<normal bg_image="contact" bg_image_draw_type="scale"/>
+	    <pressed bg_image="contact_select" bg_image_draw_type="scale"/>
+		<over bg_image="contact" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_guideline">
+		<normal bg_image="guideline" bg_image_draw_type="scale"/>
+	    <pressed bg_image="guideline_select" bg_image_draw_type="scale"/>
+		<over bg_image="guideline" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_restore">
+		<normal bg_image="restore" bg_image_draw_type="scale"/>
+	    <pressed bg_image="restore_select" bg_image_draw_type="scale"/>
+		<over bg_image="restore" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_logo">
+		<normal bg_image="logo" bg_image_draw_type="scale"/>
+	    <pressed bg_image="logo_select" bg_image_draw_type="scale"/>
+		<over bg_image="logo" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_skill" >
+		<normal bg_image="skills" bg_image_draw_type="scale"/>
+	    <pressed bg_image="skills_select" bg_image_draw_type="scale"/>
+		<over bg_image="skills" bg_image_draw_type="scale"/>
+	</style>
+</button>
+

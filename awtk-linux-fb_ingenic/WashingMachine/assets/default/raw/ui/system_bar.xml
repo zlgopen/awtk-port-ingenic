@@ -1,0 +1,8 @@
+<system_bar h="50">
+	<label style="music_play_info" x="20" y="m" w="100" h="100%" tr_text="washer_boot"/>
+	<check_button name="btn_favorite" style="btn_image_favorite" x="565" y="m" w="82" h="50"/>
+	<button name="btn_home" style="btn_image_home" x="760" y="m" w="82" h="50" />
+	<button name="btn_setting" style="btn_image_setting" x="950" y="m" w="82" h="50" />
+	<image name="image_wifi_signal" image="wifi_disconnect" x="right:120" y="m" w="40" h="40" draw_type="scale"/>
+	<digit_clock style="system_time" x="right:10" y="m:2" w="100" h="100%" format="hh:mm"/>
+</system_bar>

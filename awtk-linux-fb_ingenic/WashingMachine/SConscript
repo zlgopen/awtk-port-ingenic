@@ -1,0 +1,10 @@
+import os
+
+BIN_DIR = os.environ['BIN_DIR'];
+env=DefaultEnvironment().Clone();
+
+env['LINKFLAGS'] = env['OS_SUBSYSTEM_WINDOWS'] + env['LINKFLAGS'];
+env['CPPPATH'] = env['CPPPATH'] +['include','ext_widgets']
+sources=Glob('*.c') + Glob('ext_widgets/*/*.c')
+
+env.Program(os.path.join(BIN_DIR, 'washing_machine'),sources)

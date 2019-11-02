@@ -1,0 +1,23 @@
+<button>
+	<style name="btn_image_home">
+		<normal bg_image="home" bg_image_draw_type="scale"/>
+	    <pressed bg_image="home_selected" bg_image_draw_type="scale"/>
+		<over bg_image="home" bg_image_draw_type="scale"/>
+	</style>
+	<style name="btn_image_setting" >
+		<normal bg_image="setting" bg_image_draw_type="scale"/>
+	    <pressed bg_image="setting_selected" bg_image_draw_type="scale"/>
+		<over bg_image="setting" bg_image_draw_type="scale"/>
+	</style>
+</button>
+
+<check_button>
+	<style name="btn_image_favorite" >
+		<normal bg_image="star" bg_image_draw_type="scale"/>
+	    <pressed bg_image="star_selected" bg_image_draw_type="scale"/>
+		<over bg_image="star" bg_image_draw_type="scale"/>
+		<normal_of_checked bg_image="stared" bg_image_draw_type="scale"/>
+		<pressed_of_checked bg_image="star_selected" bg_image_draw_type="scale"/>
+		<over_of_checked bg_image="stared" bg_image_draw_type="scale" />
+	</style>
+</check_button>

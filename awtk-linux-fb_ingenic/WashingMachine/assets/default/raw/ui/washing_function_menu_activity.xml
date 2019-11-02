@@ -1,0 +1,21 @@
+<popup close_when_click_outside="true" anim_hint="slide_left" style="func_win" x="right:0" y="0" w="298" h="100%" highlight="default(start_alpha=0, end_alpha=80)">
+	<view x="30" y="20" w="248" h="364" children_layout="default(r=3,c=2,s=20)">
+		<button style="wash_func_soap">
+			<label style="setting_item" x="0" y="bottom:20" w="100%" h="20" tr_text="wash_func_01"/>
+		</button>
+		<button style="wash_func_softener">
+			<label style="setting_item" x="0" y="bottom:20" w="100%" h="20" tr_text="wash_func_02"/>
+		</button>
+		<button name="btn_foggy_wash">
+			<image name="image_foggy_wash" image="fog_wash" x="0" y="0" w="100%" h="100%" draw_type="scale"/>
+			<label style="setting_item" x="0" y="bottom:20" w="100%" h="20" tr_text="wash_func_03"/>
+		</button>
+		<button name="btn_timed_wash">
+			<image name="image_timed_wash" image="timed_wash" x="0" y="0" w="100%" h="100%" draw_type="scale"/>
+			<label style="setting_item" x="0" y="bottom:20" w="100%" h="20" tr_text="wash_func_04"/>
+		</button>
+		<button style="wash_func_booking">
+			<label style="setting_item" x="0" y="bottom:20" w="100%" h="20" tr_text="wash_func_05"/>
+		</button>
+	</view>
+</popup>

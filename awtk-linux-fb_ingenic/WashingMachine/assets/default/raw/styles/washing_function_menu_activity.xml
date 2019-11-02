@@ -1,0 +1,17 @@
+<button>
+	<style name="wash_func_soap" >
+		<normal bg_image="detergent" bg_image_draw_type="scale"/>
+	    <pressed bg_image="detergent_sel" bg_image_draw_type="scale"/>
+		<over bg_image="detergent" bg_image_draw_type="scale"/>
+	</style>
+	<style name="wash_func_softener" >
+		<normal bg_image="softener" bg_image_draw_type="scale"/>
+	    <pressed bg_image="softener_sel" bg_image_draw_type="scale"/>
+		<over bg_image="softener" bg_image_draw_type="scale"/>
+	</style>
+	<style name="wash_func_booking" >
+		<normal bg_image="timed_wash" bg_image_draw_type="scale"/>
+	    <pressed bg_image="timed_wash_sel" bg_image_draw_type="scale"/>
+		<over bg_image="timed_wash" bg_image_draw_type="scale"/>
+	</style>
+</button>

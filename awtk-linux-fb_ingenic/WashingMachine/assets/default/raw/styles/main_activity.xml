@@ -1,0 +1,12 @@
+
+<label>
+	<style name="func_name">
+		<normal text_color="black" font_size="28" />
+	</style>
+</label>
+
+<view>
+	<style name="test" border_color="#b0b0b0">
+       <normal bg_color="red"/>
+   </style>
+</view>

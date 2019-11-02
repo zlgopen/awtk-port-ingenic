@@ -1,0 +1,27 @@
+<button>
+	<style name="setting_detergent" >
+		<normal bg_image="detergent" bg_image_draw_type="scale"/>
+		<pressed bg_image="detergent_sel" bg_image_draw_type="scale"/>
+		<over bg_image="detergent" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_softener">
+		<normal bg_image="softener" bg_image_draw_type="scale"/>
+		<pressed bg_image="softener_sel" bg_image_draw_type="scale"/>
+		<over bg_image="softener" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_fog_wash">
+		<normal bg_image="fog_wash" bg_image_draw_type="scale"/>
+		<pressed bg_image="fog_wash_sel" bg_image_draw_type="scale"/>
+		<over bg_image="music" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_muste_wash">
+		<normal bg_image="mute_wash" bg_image_draw_type="scale"/>
+		<pressed bg_image="mute_wash_sel" bg_image_draw_type="scale"/>
+		<over bg_image="mute_wash" bg_image_draw_type="scale"/>
+	</style>
+	<style name="setting_timed_wash" >
+		<normal bg_image="timed_wash" bg_image_draw_type="scale"/>
+		<pressed bg_image="timed_wash_sel" bg_image_draw_type="scale"/>
+		<over bg_image="timed_wash" bg_image_draw_type="scale"/>
+	</style>
+</button>

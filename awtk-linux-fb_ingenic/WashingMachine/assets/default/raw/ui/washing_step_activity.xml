@@ -1,0 +1,5 @@
+<popup close_when_click_outside="true" style="step_win" self_layout="menu(position=up,x=center,w=170,h=210)">
+	<text_hl_selector name="step_selector" x="0" y="0" w="100%" h="100%" style="step_selector" visible_nr="3" />
+	<image image="horizontal_divide" x="c" y="70" w="92" h="2" draw_type="center" />
+	<image image="horizontal_divide" x="c" y="bottom:70" w="92" h="2" draw_type="center" />
+</popup>

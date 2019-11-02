@@ -1,0 +1,9 @@
+awtk
+bin
+lib
+*.o
+*.pyc
+release.zip
+release.tar.gz
+release
+.sconsign.dblite

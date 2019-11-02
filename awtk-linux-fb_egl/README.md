@@ -4,7 +4,8 @@
 
 [awtk-port-ingenic](https://github.com/zlgopen/awtk-port-ingenic)是君正对AWTK在mips-linux上的移植。
 
-本项目以[ZLG周立功 linux开发套件 君正m200开发板](君正商务邮箱:sale@ingenic.com) 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
+本项目以ZLG周立功 linux开发套件 君正m200开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
+君正商务邮箱:sale@ingenic.com
 
 ## 使用方法
 

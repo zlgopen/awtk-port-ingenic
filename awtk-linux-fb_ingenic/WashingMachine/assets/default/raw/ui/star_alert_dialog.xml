@@ -1,0 +1,3 @@
+<popup close_when_click_outside="true" style="alert_dialog" x="c" y="m" w="384" h="220"  anim_hint="center_scale(duration=200)">
+	<label name="label_favorite_alert" style="favorite_alert" x="c" y="m:2" w="80%" h="100%" />
+</popup>

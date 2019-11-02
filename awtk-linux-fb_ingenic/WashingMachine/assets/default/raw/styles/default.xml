@@ -1,0 +1,99 @@
+<window>
+  <style name="default">
+    <normal />
+  </style>
+  <style name="main_win">
+	  <normal bg_image="mainbg"/>
+  </style>
+</window>
+
+<window_manager>
+	<style name="main_win">
+		<normal bg_image="mainbg" />
+	</style>
+	<style name="washing_win">
+		<normal bg_image="wash_mode_bg" />
+	</style>
+</window_manager>
+
+<popup>
+  <style name="setting_win">
+	  <normal bg_image="setting_bg" bg_image_draw_type="scale"/>
+  </style>
+  <style name="func_win">
+	  <normal bg_image="function_bg" bg_image_draw_type="scale"/>
+  </style>
+  <style name="step_win">
+	  <normal bg_image="wheel_bg" bg_image_draw_type="scale"/>
+  </style>
+	<style name="alert_dialog">
+		<normal bg_image="alert_dialog_bg" />
+	</style>
+</popup>
+
+<label>
+	<style name="default">
+		<normal text_color="white" font_size="32" />
+	</style>
+	<style name="music_play_info">
+		<normal text_color="white" font_size="28"/>
+	</style>
+	<style name="system_time">
+		<normal text_color="white" font_size="26" />
+	</style>
+	<style name="setting_item">
+		<normal font_size="24" text_color="black"/>
+	</style>
+	<style name="favorite_alert">
+		<normal font_size="26" text_color="#1e90ff"/>
+	</style>
+</label>
+
+<button>
+	<style name="default" text_color="white">
+		<normal />
+	    <pressed />
+		<over />
+		<disable />
+	</style>
+</button>
+
+<list_item>
+	<style name="default">
+		<normal />
+		<pressed />
+		<over />
+	</style>
+</list_item>
+
+<text_hl_selector>
+	<style name="default" fg_color="#a0a0a0"  text_color="black" text_align_h="center">
+		<normal bg_color="#f0f0f0"/>
+	</style>
+	<style name="step_selector" text_color="black" text_align_h="center" font_size="30"  selected_text_color="#1494c2" loop="1" >
+		<normal />
+	</style>
+</text_selector>
+
+<digit_clock>
+	<style name="default">
+		<normal text_color="black" font_size="32"/>
+	</style>
+    <style name="system_time">
+		<normal text_color="white" font_size="24"/>
+	</style>
+</digit_clock>
+
+
+<image>
+  <style name="border">
+    <normal border_color="#000000" bg_color="#e0e0e0" text_color="black"/>
+  </style>
+</image>
+
+<view>
+  <style name="default">
+      <normal/>
+  </style>
+</view>
+

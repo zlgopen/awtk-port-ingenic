@@ -1,0 +1,213 @@
+<string name="washer_boot">
+	<language name="en_US">下筒模式</language>
+	<language name="zh_CN">下筒模式</language>
+</string>
+
+<string name="func_01">
+	<language name="en_US">智能洗衣专家</language>
+	<language name="zh_CN">智能洗衣专家</language>
+</string>
+
+<string name="func_02">
+	<language name="en_US">棉麻</language>
+	<language name="zh_CN">棉麻</language>
+</string>
+
+<string name="func_03">
+	<language name="en_US">混合洗</language>
+	<language name="zh_CN">混合洗</language>
+</string>
+
+<string name="func_04">
+	<language name="en_US">快速洗15'</language>
+	<language name="zh_CN">快速洗15'</language>
+</string>
+
+<string name="func_05">
+	<language name="en_US">大件</language>
+	<language name="zh_CN">大件</language>
+</string>
+
+<string name="func_06">
+	<language name="en_US">羊毛</language>
+	<language name="zh_CN">羊毛</language>
+</string>
+
+<string name="func_07">
+	<language name="en_US">节能</language>
+	<language name="zh_CN">节能</language>
+</string>
+
+<string name="func_08">
+	<language name="en_US">活性酶</language>
+	<language name="zh_CN">活性酶</language>
+</string>
+
+<string name="func_09">
+	<language name="en_US">空气洗</language>
+	<language name="zh_CN">空气洗</language>
+</string>
+
+<string name="func_10">
+	<language name="en_US">羽绒服</language>
+	<language name="zh_CN">羽绒服</language>
+</string>
+
+<string name="func_11">
+	<language name="en_US">运动服</language>
+	<language name="zh_CN">运动服</language>
+</string>
+
+<string name="func_12">
+	<language name="en_US">户外服</language>
+	<language name="zh_CN">户外服</language>
+</string>
+
+<string name="func_13">
+	<language name="en_US">漂洗+脱水</language>
+	<language name="zh_CN">漂洗+脱水</language>
+</string>
+
+<string name="func_14">
+	<language name="en_US">单脱水</language>
+	<language name="zh_CN">单脱水</language>
+</string>
+
+<string name="func_15">
+	<language name="en_US">单烘干</language>
+	<language name="zh_CN">单烘干</language>
+</string>
+
+<string name="func_16">
+	<language name="en_US">速洗30'</language>
+	<language name="zh_CN">速洗30'</language>
+</string>
+
+<string name="func_17">
+	<language name="en_US">洗洪60'</language>
+	<language name="zh_CN">洗洪60'</language>
+</string>
+
+<string name="func_18">
+	<language name="en_US">筒自洁</language>
+	<language name="zh_CN">筒自洁</language>
+</string>
+<string name="wash_start">
+	<language name="en_US">开始</language>
+	<language name="zh_CN">开始</language>
+</string>
+
+<string name="wash_pause">
+	<language name="en_US">暂停</language>
+	<language name="zh_CN">暂停</language>
+</string>
+
+<string name="wash_func_01">
+	<language name="en_US">洗涤剂</language>
+	<language name="zh_CN">洗涤剂</language>
+</string>
+
+<string name="wash_func_02">
+	<language name="en_US">柔顺剂</language>
+	<language name="zh_CN">柔顺剂</language>
+</string>
+
+<string name="wash_func_03">
+	<language name="en_US">雾态洗</language>
+	<language name="zh_CN">雾态洗</language>
+</string>
+
+<string name="wash_func_04">
+	<language name="en_US">静音洗</language>
+	<language name="zh_CN">静音洗</language>
+</string>
+
+<string name="wash_func_05">
+	<language name="en_US">预约</language>
+	<language name="zh_CN">预约</language>
+</string>
+
+<string name="setting_func_01">
+	<language name="en_US">童锁</language>
+	<language name="zh_CN">童锁</language>
+</string>
+
+<string name="setting_func_02">
+	<language name="en_US">下筒灯</language>
+	<language name="zh_CN">下筒灯</language>
+</string>
+
+<string name="setting_func_03">
+	<language name="en_US">Wi-Fi</language>
+	<language name="zh_CN">Wi-Fi</language>
+</string>
+
+<string name="setting_func_04">
+	<language name="en_US">水管家</language>
+	<language name="zh_CN">水管家</language>
+</string>
+
+<string name="setting_func_05">
+	<language name="en_US">静音</language>
+	<language name="zh_CN">静音</language>
+</string>
+
+<string name="setting_func_06">
+	<language name="en_US">亮度</language>
+	<language name="zh_CN">亮度</language>
+</string>
+
+<string name="setting_func_07">
+	<language name="en_US">联系方式</language>
+	<language name="zh_CN">联系方式</language>
+</string>
+
+<string name="setting_func_08">
+	<language name="en_US">操作指引</language>
+	<language name="zh_CN">操作指引</language>
+</string>
+
+<string name="setting_func_09">
+	<language name="en_US">恢复默认</language>
+	<language name="zh_CN">恢复默认</language>
+</string>
+
+<string name="setting_func_10">
+	<language name="en_US">衣物标识</language>
+	<language name="zh_CN">衣物标识</language>
+</string>
+
+<string name="setting_func_11">
+	<language name="en_US">洗衣技巧</language>
+	<language name="zh_CN">洗衣技巧</language>
+</string>
+
+<string name="wash_status_run">
+	<language name="en_US">进行中</language>
+	<language name="zh_CN">进行中</language>
+</string>
+
+<string name="wash_status_pause">
+	<language name="en_US">暂停中</language>
+	<language name="zh_CN">暂停中</language>
+</string>
+
+<string name="wash_status_finish">
+	<language name="en_US">已完成</language>
+	<language name="zh_CN">已完成</language>
+</string>
+
+<string name="wash_function">
+	<language name="en_US">功能</language>
+	<language name="zh_CN">功能</language>
+</string>
+
+<string name="favorite_cancel">
+	<language name="en_US">取消收藏</language>
+	<language name="zh_CN">取消收藏</language>
+</string>
+
+<string name="favorite_add">
+	<language name="en_US">已收藏</language>
+	<language name="zh_CN">已收藏</language>
+</string>
