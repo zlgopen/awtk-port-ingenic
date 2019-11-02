@@ -38,47 +38,56 @@ OS_CPPPATH=[]
 OS_LINKFLAGS=''
 OS_SUBSYSTEM_CONSOLE=''
 OS_SUBSYSTEM_WINDOWS=''
-#OS_FLAGS='-g -Wall -Os '
-OS_FLAGS='-g -Wall -Os -mfloat-abi=hard '
+OS_FLAGS='-g -Wall -Os '
+#OS_FLAGS='-g -Wall -Os -mfloat-abi=hard '
 
 #for build tslib
-#TSLIB_INC_DIR=joinPath(TK_LINUX_FB_ROOT, '3rd/tslib/src')
-#TSLIB_LIB_DIR=joinPath(TK_LINUX_FB_ROOT, '3rd/tslib/src/.libs')
+TSLIB_INC_DIR=[joinPath(TK_LINUX_FB_ROOT, '3rd/include'), joinPath(TK_LINUX_FB_ROOT, '3rd/include/HAL')]
+TSLIB_LIB_DIR=joinPath(TK_LINUX_FB_ROOT, '3rd/libs')
+TOOLS_PREFIX=os.getenv("COMPILER_PATH")+'/bin/mips-linux-gnu-'
 
 #for prebuild tslib
 #TSLIB_LIB_DIR='/opt/28x/tslib/lib'
 #TSLIB_INC_DIR='/opt/28x/tslib/include'
 #TOOLS_PREFIX='/opt/28x/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-linux-'
-TOOLS_PREFIX='/opt/poky/1.7/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-'
+#TOOLS_PREFIX='/opt/poky/1.7/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-'
 
 #for pc build
 #TOOLS_PREFIX=''
-TSLIB_LIB_DIR=''
+#TSLIB_LIB_DIR=''
 #OS_FLAGS='-g -Wall '
 
-OS_LIBS = OS_LIBS + ['stdc++', 'pthread', 'm', 'dl', "GLESv2", "EGL"]
-COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DLINUX -DHAS_PTHREAD -DENABLE_CURSOR -DEGL_API_FB -DWITH_NANOVG_GLES2 -DWITH_NANOVG_GL -DWITH_NANOVG_GPU'
+OS_LIBS = OS_LIBS + ['stdc++', 'pthread', 'm', 'dl','rt']
+COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DLINUX -DHAS_PTHREAD'
+# -DENABLE_CURSOR
 
 if TSLIB_LIB_DIR != '':
   COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DHAS_TSLIB '
 
+LIBS=['awtk', 'extwidgets', 'widgets', 'awtk_linux_fb', 'base', 'gpinyin', 'tkc', 'linebreak'];
+
+NANOVG_BACKEND_LIBS=['nanovg','glad',\
+        'galUtil','GAL','EGL', 'VDK','GLSLC', 'VSC', 'GLESv2'];
+COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DWITH_NANOVG_GLES2 -DWITH_NANOVG_GL' \
+        + ' -DWITH_NANOVG_GPU -DEGL_API_FB'
+LIBS=LIBS + OS_LIBS + NANOVG_BACKEND_LIBS
+
 CFLAGS=COMMON_CFLAGS
 LINKFLAGS=OS_LINKFLAGS;
 LIBPATH=[LIB_DIR] + OS_LIBPATH
-CCFLAGS=OS_FLAGS + COMMON_CCFLAGS 
-LIBS=['awtk', 'extwidgets', 'widgets', 'awtk_linux_fb', 'base', 'gpinyin', 'tkc', 'nanovg', "glad", 'linebreak', 'rt'] + OS_LIBS
+CCFLAGS=OS_FLAGS + COMMON_CCFLAGS
 
-CPPPATH=[TK_ROOT, 
-  TK_SRC, 
-  TK_3RD_ROOT, 
-  joinPath(TK_SRC, 'ext_widgets'), 
-  joinPath(TK_ROOT, 'tools'), 
-  joinPath(TK_3RD_ROOT, 'glad'), 
-  joinPath(TK_3RD_ROOT, 'nanovg'), 
-  joinPath(TK_3RD_ROOT, 'nanovg/gl'), 
-  joinPath(TK_3RD_ROOT, 'nanovg/base'), 
-  joinPath(TK_3RD_ROOT, 'libunibreak'), 
-  joinPath(TK_3RD_ROOT, 'gpinyin/include'), 
+CPPPATH=[TK_ROOT,
+  TK_SRC,
+  TK_3RD_ROOT,
+  joinPath(TK_SRC, 'ext_widgets'),
+  joinPath(TK_ROOT, 'tools'),
+  joinPath(TK_3RD_ROOT, 'glad'),
+  joinPath(TK_3RD_ROOT, 'nanovg'),
+  joinPath(TK_3RD_ROOT, 'nanovg/gl'),
+  joinPath(TK_3RD_ROOT, 'nanovg/base'),
+  joinPath(TK_3RD_ROOT, 'libunibreak'),
+  joinPath(TK_3RD_ROOT, 'gpinyin/include'),
   ] + OS_CPPPATH
 
 if TSLIB_LIB_DIR != '':
@@ -87,7 +96,7 @@ if TSLIB_LIB_DIR != '':
   CPPPATH = [TSLIB_INC_DIR] + CPPPATH;
 
 os.environ['LCD'] = LCD
-os.environ['TARGET_ARCH'] = 'arm'
+os.environ['TARGET_ARCH'] = ''
 os.environ['BIN_DIR'] = BIN_DIR;
 os.environ['LIB_DIR'] = LIB_DIR;
 os.environ['TK_ROOT'] = TK_ROOT;
@@ -99,6 +108,7 @@ os.environ['NANOVG_BACKEND'] = NANOVG_BACKEND;
 os.environ['TK_3RD_ROOT'] = TK_3RD_ROOT;
 os.environ['GTEST_ROOT'] = GTEST_ROOT;
 os.environ['NATIVE_WINDOW'] = 'fb_gl';
+os.environ['GRAPHIC_BUFFER'] = 'default';
 
 CC=TOOLS_PREFIX+'gcc',
 CXX=TOOLS_PREFIX+'g++',
