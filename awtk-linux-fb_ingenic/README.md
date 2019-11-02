@@ -118,6 +118,8 @@ zlgopen
 TK_ROOT = joinPath(os.getcwd(), '../awtk')
 APP_ROOT=joinPath(os.getcwd(), '../awtk-examples/HelloWorld-Demo')
 ```
-####fluent_scroll_view说明
+#### fluent_scroll_view说明
+
 牺牲大量内存提高scroll_view绘制滑动效果的控件
-使用时将文件替换/合并到awtk/src/ext_widgets/scroll_view中
+
+使用时请将文件替换/合并到awtk/src/ext_widgets/scroll_view中
