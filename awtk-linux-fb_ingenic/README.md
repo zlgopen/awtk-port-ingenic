@@ -29,12 +29,11 @@ export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc2
 ```
 
 * 3.如果使用GPU加速，请将diff文件夹中的diff合并到awtk中
-     cp diff/awtk适配ingenic_GPU.diff ../awtk
-     cd ../awtk
-     git apply awtk适配ingenic_GPU.diff
 
 ```
-export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc222
+cp diff/awtk适配ingenic_GPU.diff ../awtk
+cd ../awtk
+git apply awtk适配ingenic_GPU.diff
 ```
 
 * 4.编辑 awtk_config.py 设置编译模式
