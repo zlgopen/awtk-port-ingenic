@@ -28,9 +28,13 @@ cd awtk-linux-fb_ingenic
 export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc222
 ```
 
-* 3.如果使用GPU加速，请将diff文件夹中的diff合并到awtk中
+* 3.如果使用GPU加速，请将graphic_buffer_default.c替换掉awtk目录下同名文件
+
+    并将diff文件夹中的diff合并到awtk中
 
 ```
+cp diff/graphic_buffer_default.c ../awtk/src/graphic_buffer/graphic_buffer_default.c
+
 cp diff/awtk适配ingenic_GPU.diff ../awtk
 cd ../awtk
 git apply awtk适配ingenic_GPU.diff

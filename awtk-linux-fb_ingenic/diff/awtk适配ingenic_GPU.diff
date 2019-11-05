@@ -41,10 +41,10 @@ index 0aabec6..11649fa 100644
      glEnable(GL_BLEND);
      glDisable(GL_DEPTH_TEST);
 diff --git a/src/awtk_global.c b/src/awtk_global.c
-index e79b840..9a92021 100644
+index e79b840..05a0c26 100644
 --- a/src/awtk_global.c
 +++ b/src/awtk_global.c
-@@ -306,11 +306,12 @@ ret_t tk_set_lcd_orientation(lcd_orientation_t orientation) {
+@@ -306,11 +306,10 @@ ret_t tk_set_lcd_orientation(lcd_orientation_t orientation) {
    return_value_if_fail(loop != NULL && info != NULL, RET_OK);
  
    if (info->lcd_orientation != orientation) {
@@ -52,56 +52,11 @@ index e79b840..9a92021 100644
      orientation_event_t e;
      orientation_event_init(&e, EVT_ORIENTATION_WILL_CHANGED, NULL, orientation);
      widget_dispatch(window_manager(), (event_t*)&e);
- 
+-
 -    system_info_set_lcd_orientation(info, orientation);
-+    //system_info_set_lcd_orientation(info, orientation);
    }
  
    return RET_OK;
-diff --git a/src/graphic_buffer/graphic_buffer_jzgpu.c b/src/graphic_buffer/graphic_buffer_jzgpu.c
-index b29bd4d..eb02c68 100644
---- a/src/graphic_buffer/graphic_buffer_jzgpu.c
-+++ b/src/graphic_buffer/graphic_buffer_jzgpu.c
-@@ -26,12 +26,12 @@
- #ifdef WITH_JZGPU
- /**
-  * @class graphic_buffer_jzgpu_t
-- * graphic_buffer jzgpu 
-+ * graphic_buffer jzgpu
-  */
- typedef struct _graphic_buffer_jzgpu_t {
-   graphic_buffer_t graphic_buffer;
-   uint8_t* data;
--  void* handle;
-+  void* pwdata;
- } graphic_buffer_jzgpu_t;
- 
- #define GRAPHIC_BUFFER_JZGPU(buffer) ((graphic_buffer_jzgpu_t*)(buffer))
-@@ -57,6 +57,7 @@ static ret_t graphic_buffer_jzgpu_unlock(graphic_buffer_t* buffer) {
- static ret_t graphic_buffer_jzgpu_destroy(graphic_buffer_t* buffer) {
-   graphic_buffer_jzgpu_t* b = GRAPHIC_BUFFER_JZGPU(buffer);
-   return_value_if_fail(b != NULL, RET_BAD_PARAMS);
-+  gpu2d_free_buffer(b);
- 
-   /*TODO*/
-   TKMEM_FREE(b);
-@@ -80,7 +81,7 @@ static graphic_buffer_t* graphic_buffer_jzgpu_create(uint32_t w, uint32_t h, bit
- 
-   buffer = TKMEM_ZALLOC(graphic_buffer_jzgpu_t);
-   return_value_if_fail(buffer != NULL, NULL);
--  buffer->graphic_buffer.vt = &s_graphic_buffer_default_vtable;
-+  buffer->graphic_buffer.vt = &s_graphic_buffer_jzgpu_vtable;
- 
-   /*TODO*/
-   return GRAPHIC_BUFFER(buffer);
-@@ -106,6 +107,7 @@ ret_t graphic_buffer_create_for_bitmap(bitmap_t* bitmap) {
- 
-   bitmap->buffer = graphic_buffer_jzgpu_create(bitmap->w, bitmap->h,
-                                                  (bitmap_format_t)(bitmap->format), line_length);
-+  gpu2d_alloc_buffer(bitmap);
-   bitmap->should_free_data = bitmap->buffer != NULL;
- 
-   return bitmap->buffer != NULL ? RET_OK : RET_OOM;
 diff --git a/src/vgcanvas/texture.inc b/src/vgcanvas/texture.inc
 index 701f5f8..7feae7c 100644
 --- a/src/vgcanvas/texture.inc
@@ -116,10 +71,10 @@ index 701f5f8..7feae7c 100644
    if (data != img_data) {
      TKMEM_FREE(data);
 diff --git a/src/vgcanvas/vgcanvas_nanovg_gl.c b/src/vgcanvas/vgcanvas_nanovg_gl.c
-index bae0254..cb5b585 100644
+index bae0254..15d0a72 100644
 --- a/src/vgcanvas/vgcanvas_nanovg_gl.c
 +++ b/src/vgcanvas/vgcanvas_nanovg_gl.c
-@@ -40,10 +40,11 @@
+@@ -40,7 +40,7 @@
  #include "tkc/mem.h"
  #include "base/vgcanvas.h"
  #include "base/image_manager.h"
@@ -128,11 +83,7 @@ index bae0254..cb5b585 100644
  
  #include "nanovg_gl.h"
  #include "nanovg_gl_utils.h"
-+/* #include <EGL/egl.h> */
- 
- typedef struct _vgcanvas_nanovg_t {
-   vgcanvas_t base;
-@@ -52,19 +53,23 @@ typedef struct _vgcanvas_nanovg_t {
+@@ -52,19 +52,23 @@ typedef struct _vgcanvas_nanovg_t {
    NVGcontext* vg;
    uint32_t text_align_v;
    uint32_t text_align_h;
@@ -162,7 +113,7 @@ index bae0254..cb5b585 100644
    vgcanvas_nanovg_t* nanovg = (vgcanvas_nanovg_t*)TKMEM_ZALLOC(vgcanvas_nanovg_t);
    return_value_if_fail(nanovg != NULL, NULL);
  
-@@ -73,9 +78,10 @@ vgcanvas_t* vgcanvas_create(uint32_t w, uint32_t h, uint32_t stride, bitmap_form
+@@ -73,9 +77,10 @@ vgcanvas_t* vgcanvas_create(uint32_t w, uint32_t h, uint32_t stride, bitmap_form
    nanovg->base.w = w;
    nanovg->base.h = h;
    nanovg->base.vt = &vt;
@@ -176,10 +127,10 @@ index bae0254..cb5b585 100644
    nanovg->vg = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
  #elif defined(WITH_NANOVG_GLES2)
 diff --git a/src/vgcanvas/vgcanvas_nanovg_gl.inc b/src/vgcanvas/vgcanvas_nanovg_gl.inc
-index 0ec0257..1a1efdc 100644
+index e6f65f3..1a1efdc 100644
 --- a/src/vgcanvas/vgcanvas_nanovg_gl.inc
 +++ b/src/vgcanvas/vgcanvas_nanovg_gl.inc
-@@ -9,48 +9,14 @@ static ret_t vgcanvas_nanovg_reinit(vgcanvas_t* vg, uint32_t w, uint32_t h, uint
+@@ -9,46 +9,14 @@ static ret_t vgcanvas_nanovg_reinit(vgcanvas_t* vg, uint32_t w, uint32_t h, uint
  }
  
  static ret_t vgcanvas_nanovg_begin_frame(vgcanvas_t* vgcanvas, rect_t* dirty_rect) {
@@ -196,21 +147,20 @@ index 0ec0257..1a1efdc 100644
 +  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
  
 -  native_window_gl_make_current(canvas->window);
--  
+-
 -  nvgBeginFrame(canvas->vg, info->lcd_w, info->lcd_h, info->device_pixel_ratio);
 -
--  switch (info->lcd_orientation)
--  {
--    case LCD_ORIENTATION_0: 
+-  switch (info->lcd_orientation) {
+-    case LCD_ORIENTATION_0:
 -      angle = 0.0f;
 -      break;
--    case LCD_ORIENTATION_90: 
+-    case LCD_ORIENTATION_90:
 -      angle = TK_D2R(90);
 -      break;
--    case LCD_ORIENTATION_180: 
+-    case LCD_ORIENTATION_180:
 -      angle = TK_D2R(180);
 -      break;
--    case LCD_ORIENTATION_270: 
+-    case LCD_ORIENTATION_270:
 -      angle = TK_D2R(270);
 -      break;
 -  }
@@ -219,13 +169,12 @@ index 0ec0257..1a1efdc 100644
 -  anchor_y = info->lcd_h / 2.0f;
 -
 -  nvgSave(canvas->vg);
--  
--  if(info->lcd_orientation == LCD_ORIENTATION_90 || info->lcd_orientation == LCD_ORIENTATION_270) {
+-
+-  if (info->lcd_orientation == LCD_ORIENTATION_90 || info->lcd_orientation == LCD_ORIENTATION_270) {
 -    nvgTranslate(canvas->vg, anchor_x, anchor_y);
 -    nvgRotate(canvas->vg, angle);
 -    nvgTranslate(canvas->vg, -anchor_y, -anchor_x);
--  }
--  else if(info->lcd_orientation == LCD_ORIENTATION_180) {
+-  } else if (info->lcd_orientation == LCD_ORIENTATION_180) {
 -    nvgTranslate(canvas->vg, anchor_x, anchor_y);
 -    nvgRotate(canvas->vg, angle);
 -    nvgTranslate(canvas->vg, -anchor_x, -anchor_y);
@@ -234,7 +183,7 @@ index 0ec0257..1a1efdc 100644
  
    return RET_OK;
  }
-@@ -59,9 +25,7 @@ static ret_t vgcanvas_nanovg_end_frame(vgcanvas_t* vgcanvas) {
+@@ -57,9 +25,7 @@ static ret_t vgcanvas_nanovg_end_frame(vgcanvas_t* vgcanvas) {
    vgcanvas_nanovg_t* canvas = (vgcanvas_nanovg_t*)vgcanvas;
    NVGcontext* vg = canvas->vg;
  
@@ -244,20 +193,6 @@ index 0ec0257..1a1efdc 100644
  
    return RET_OK;
  }
-diff --git a/src/vgcanvas/vgcanvas_nanovg_soft.inc b/src/vgcanvas/vgcanvas_nanovg_soft.inc
-index 5c9270e..6e70776 100644
---- a/src/vgcanvas/vgcanvas_nanovg_soft.inc
-+++ b/src/vgcanvas/vgcanvas_nanovg_soft.inc
-@@ -133,7 +133,8 @@ static int vgcanvas_nanovg_ensure_image(vgcanvas_nanovg_t* canvas, bitmap_t* img
-     }
-   }
- 
--  i = nvgCreateImageRaw(canvas->vg, img->w, img->h, f, NVG_IMAGE_NEAREST, img_data);
-+  i = nvgCreateImageRaw(canvas->vg, img->line_length/f, img->h, f, 0, data);
-+  //i = nvgCreateImageRaw(canvas->vg, img->w, img->h, f, NVG_IMAGE_NEAREST, img->data);
- 
-   if (data != img_data) {
-     TKMEM_FREE(data);
 diff --git a/src/window_animators/window_animator_common.c b/src/window_animators/window_animator_common.c
 index 64971fe..99093bb 100644
 --- a/src/window_animators/window_animator_common.c
@@ -302,10 +237,10 @@ index 64971fe..99093bb 100644
  }
  
 diff --git a/src/window_manager/window_manager_default.c b/src/window_manager/window_manager_default.c
-index 28a4b0c..8103e35 100644
+index abc24fe..3d7c4f9 100644
 --- a/src/window_manager/window_manager_default.c
 +++ b/src/window_manager/window_manager_default.c
-@@ -146,7 +146,7 @@ static widget_t* window_manager_find_prev_any_window(widget_t* widget) {
+@@ -147,7 +147,7 @@ static widget_t* window_manager_find_prev_any_window(widget_t* widget) {
  ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_win, bitmap_t* img,
                                                framebuffer_object_t* fbo, bool_t auto_rotate) {
    canvas_t* c = NULL;
@@ -314,7 +249,7 @@ index 28a4b0c..8103e35 100644
    vgcanvas_t* vg = NULL;
  #else
    rect_t r = {0};
-@@ -158,7 +158,7 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
+@@ -159,7 +159,7 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
  
    c = native_window_get_canvas(wm->native_window);
  
@@ -323,7 +258,7 @@ index 28a4b0c..8103e35 100644
    vg = lcd_get_vgcanvas(c->lcd);
    ENSURE(vgcanvas_create_fbo(vg, fbo) == RET_OK);
    ENSURE(vgcanvas_bind_fbo(vg, fbo) == RET_OK);
-@@ -169,11 +169,11 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
+@@ -171,11 +171,11 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
  #else
    r = rect_init(curr_win->x, curr_win->y, curr_win->w, curr_win->h);
    ENSURE(canvas_begin_frame(c, &r, LCD_DRAW_OFFLINE) == RET_OK);
@@ -337,7 +272,7 @@ index 28a4b0c..8103e35 100644
  #endif
  
    return RET_OK;
-@@ -182,7 +182,7 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
+@@ -184,7 +184,7 @@ ret_t window_manager_default_snap_curr_window(widget_t* widget, widget_t* curr_w
  ret_t window_manager_default_snap_prev_window(widget_t* widget, widget_t* prev_win, bitmap_t* img,
                                                framebuffer_object_t* fbo, bool_t auto_rotate) {
    canvas_t* c = NULL;
@@ -346,7 +281,7 @@ index 28a4b0c..8103e35 100644
    vgcanvas_t* vg = NULL;
  #else
    rect_t r = {0};
-@@ -197,7 +197,7 @@ ret_t window_manager_default_snap_prev_window(widget_t* widget, widget_t* prev_w
+@@ -199,7 +199,7 @@ ret_t window_manager_default_snap_prev_window(widget_t* widget, widget_t* prev_w
    c = native_window_get_canvas(wm->native_window);
    dialog_highlighter = wm->dialog_highlighter;
  
@@ -355,7 +290,7 @@ index 28a4b0c..8103e35 100644
    vg = lcd_get_vgcanvas(c->lcd);
    ENSURE(vgcanvas_create_fbo(vg, fbo) == RET_OK);
    ENSURE(vgcanvas_bind_fbo(vg, fbo) == RET_OK);
-@@ -213,15 +213,15 @@ ret_t window_manager_default_snap_prev_window(widget_t* widget, widget_t* prev_w
+@@ -216,15 +216,15 @@ ret_t window_manager_default_snap_prev_window(widget_t* widget, widget_t* prev_w
  #else
    r = rect_init(prev_win->x, prev_win->y, prev_win->w, prev_win->h);
    ENSURE(canvas_begin_frame(c, &r, LCD_DRAW_OFFLINE) == RET_OK);

@@ -7,4 +7,5 @@
      ```
      git apply awtk适配ingenic_GPU.diff
      ```
-
+  2. 用graphic_buffer_default.c 替换掉awtk目录下同名文件
+    cp diff/graphic_buffer_default.c awtk/src/graphic_buffer/graphic_buffer_default.c
