@@ -22,10 +22,12 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "tslib.h"
 #include "tkc/mem.h"
 #include "base/keys.h"
 #include "tkc/thread.h"
+#include "tkc/time_now.h"
 #include "tslib_thread.h"
 #include "tkc/utils.h"
 
@@ -76,6 +78,7 @@ static ret_t tslib_dispatch_one_event(run_info_t* info) {
   }
 
   req->event.type = EVT_NONE;
+  req->event.time = time_now_ms();
   req->pointer_event.x = e.x;
   req->pointer_event.y = e.y;
 

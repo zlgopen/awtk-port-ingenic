@@ -106,7 +106,7 @@ static ret_t init_main_activity_widgets_events(void* ctx, const void* iter)
 			widget_on(widget, EVT_CLICK, on_setting_button_clicked, win);
 		} else if (tk_str_eq(name, "scroll_view")) {
 			int i = 0;
-            widget_on(widget,EVT_POINTER_UP_BEFORE_CHILDREN,on_scroll_view_up_before,widget);
+//            widget_on(widget,EVT_POINTER_UP_BEFORE_CHILDREN,on_scroll_view_up_before,widget);
 			for (i = 0; i < 18; i++) {
 				widget_t* list_item = widget_get_child(widget, i);
 				widget_on(list_item, EVT_CLICK, on_wash_function_item_clicked, (void*)i);

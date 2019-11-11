@@ -61,7 +61,7 @@ TOOLS_PREFIX=os.getenv("COMPILER_PATH")+'/bin/mips-linux-gnu-'
 #OS_FLAGS='-g -Wall '
 
 OS_LIBS = OS_LIBS + ['stdc++', 'pthread', 'm', 'dl','rt']
-COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DLINUX -DHAS_PTHREAD -DWITH_BITMAP_BGRA'
+COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DLINUX -DHAS_PTHREAD -DWITH_LCD_LANDSCAPE'
 # -DENABLE_CURSOR
 
 if TSLIB_LIB_DIR != '':
@@ -81,7 +81,7 @@ elif NANOVG_BACKEND == 'GLES2':
     NANOVG_BACKEND_LIBS=['nanovg','glad',\
      'galUtil','GAL','EGL', 'VIVANTE', 'VDK', 'GLSLC', 'VSC', 'GLESv2'];
     COMMON_CCFLAGS = COMMON_CCFLAGS + ' -DWITH_NANOVG_GLES2 -DWITH_NANOVG_GL -DWITH_G2D' \
-            + ' -DWITH_NANOVG_GPU -DWITH_VGCANVAS_LCD -DWITH_JZGPU'
+            + ' -DWITH_NANOVG_GPU -DWITH_VGCANVAS_LCD -DWITH_JZGPU -DWITH_SCREEN_GL_FLIP_VERTICAL'
     GRAPHIC_BUFFER="jzgpu"
     LIBS=['awtk', 'extwidgets', 'awtk_linux_fb_gpu', 'widgets', 'base', 'gpinyin', 'tkc', 'linebreak'];
 

@@ -74,6 +74,7 @@
 #define eglSignalSyncKHR                gcmEGL(eglSignalSyncKHR)
 #define eglSurfaceAttrib                gcmEGL(eglSurfaceAttrib)
 #define eglSwapBuffers                  gcmEGL(eglSwapBuffers)
+#define eglSwapBuffersBatch             gcmEGL(eglSwapBuffersBatch)
 #define eglSwapBuffersRegionEXT         gcmEGL(eglSwapBuffersRegionEXT)
 #define eglSwapInterval                 gcmEGL(eglSwapInterval)
 #define eglTerminate                    gcmEGL(eglTerminate)

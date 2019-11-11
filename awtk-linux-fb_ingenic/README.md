@@ -7,7 +7,7 @@ AWTK port for Ingenic
 
 [awtk-port-ingenic](https://github.com/zlgopen/awtk-port-ingenic)是君正对AWTK在mips-linux上的移植。
 
-本项目以ZLG周立功 linux开发套件 君正m200 x1000 x1830开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
+本项目以ZLG周立功 linux开发套件 君正x1000 x1830开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
 君正商务邮箱:sale@ingenic.com
 
 ## 使用方法
@@ -18,7 +18,7 @@ AWTK port for Ingenic
 git clone https://github.com/zlgopen/awtk.git
 git clone https://github.com/zlgopen/awtk-examples.git
 git clone https://github.com/zlgopen/awtk-port-ingenic.git
-cp -r awtk-port-ingenic/awtk-linux-fb_egl .
+cp -r awtk-port-ingenic/awtk-linux-fb_ingenic .
 cd awtk-linux-fb_ingenic
 ```
 
@@ -28,27 +28,14 @@ cd awtk-linux-fb_ingenic
 export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc222
 ```
 
-* 3.如果使用GPU加速，请将graphic_buffer_default.c替换掉awtk目录下同名文件
-
-    并将diff文件夹中的diff合并到awtk中
+* 3.编辑 awtk_config.py 设置编译模式
 
 ```
-cp diff/graphic_buffer_default.c ../awtk/src/graphic_buffer/graphic_buffer_default.c
-
-cp diff/awtk适配ingenic_GPU.diff ../awtk
-cd ../awtk
-git apply awtk适配ingenic_GPU.diff
-```
-
-* 4.编辑 awtk_config.py 设置编译模式
-
-```
-使用GPU绘制时 ：NANOVG_BACKEND='GLES2'
-使用CPU绘制时 ：NANOVG_BACKEND='AGGE'
+在x1000开发环境使用CPU绘制时 ：NANOVG_BACKEND='AGGE'
 在x1830开发环境使用CPU绘制时 ：NANOVG_BACKEND='AGGE' BOARD_PLATFORM= 'x1830'
 ```
 
-* 5.编辑 awtk-port/main\_loop\_linux.c 修改输入设备的文件名
+* 4.编辑 awtk-port/main\_loop\_linux.c 修改输入设备的文件名
 
 ```
 #define FB_DEVICE_FILENAME "/dev/fb0"
@@ -56,7 +43,7 @@ git apply awtk适配ingenic_GPU.diff
 #define KB_DEVICE_FILENAME "/dev/input/event1"
 ```
 
-* 6.编译(请先安装scons)
+* 5.编译(请先安装scons)
 
 生成内置 demoui 例子，生成结果在 build/bin 文件夹下的 demoui 文件
 生成内置 washing_machine 例子，生成结果在 build/bin 文件夹下的 washing_machine 文件
@@ -71,7 +58,7 @@ scons
 scons APP=../awtk-examples/HelloWorld-Demo
 ```
 
-* 7.生成发布包
+* 6.生成发布包
 
 对于内置的 demoui 例子
 
@@ -92,7 +79,7 @@ scons APP=../awtk-examples/HelloWorld-Demo
 ./release.sh ../awtk-examples/Chart-Demo/res_800_480
 ```
 
-* 8.运行
+* 7.运行
 
 把 release.tar.gz 上传到开发板，并解压，然后根据发布包选择运行：
 
