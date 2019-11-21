@@ -81,6 +81,16 @@ scons APP=../awtk-examples/HelloWorld-Demo
 
 * 7.运行
 
+开发板环境搭建
+
+```
+把3rd/etc内所有文件上传到开发板/etc内
+把3rd/libs内所有文件上传到开发板/usr/lib内
+把awtk-port-libs内所有文件上传到开发板/usr/lib内
+在开发板内执行sync命令
+重启开发板
+```
+
 把 release.tar.gz 上传到开发板，并解压，然后根据发布包选择运行：
 
 ```
