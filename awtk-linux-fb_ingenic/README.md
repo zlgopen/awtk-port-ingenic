@@ -35,12 +35,12 @@ export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc2
 在x1830开发环境使用CPU绘制时 ：NANOVG_BACKEND='AGGE' BOARD_PLATFORM= 'x1830'
 ```
 
-* 4.编辑 awtk-port/main\_loop\_linux.c 修改输入设备的文件名
+* 4.编辑 3rd/etc/profile 修改输入设备的文件名
 
 ```
-#define FB_DEVICE_FILENAME "/dev/fb0"
-#define TS_DEVICE_FILENAME "/dev/input/event0"
-#define KB_DEVICE_FILENAME "/dev/input/event1"
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_FBDEVICE=/dev/fb0
+export KB_DEVICE_FILENAME=/dev/input/event1
 ```
 
 * 5.编译(请先安装scons)

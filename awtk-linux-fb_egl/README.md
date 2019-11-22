@@ -25,12 +25,21 @@ cd awtk-linux-fb_egl
 export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc222
 ```
 
-* 3.编辑 awtk-port/main\_loop\_linux.c 修改输入设备的文件名
+* 3.修改输入设备的文件名
+
+编辑 awtk-port/main\_loop\_linux.c
 
 ```
 #define FB_DEVICE_FILENAME "/dev/fb0"
 #define TS_DEVICE_FILENAME "/dev/input/event0"
 #define KB_DEVICE_FILENAME "/dev/input/event1"
+```
+
+编辑 3rd/etc/profile
+
+```
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_FBDEVICE=/dev/fb0
 ```
 
 * 4.编译(请先安装scons)
