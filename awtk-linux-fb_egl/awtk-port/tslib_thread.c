@@ -59,7 +59,7 @@ static ret_t tslib_dispatch_one_event(run_info_t* info) {
 
   event_queue_req_t* req = &(info->req);
 
-  if (ret <= 0) {
+  if (ret < 0) {
     printf("%s:%d tslib read failed(ret=%d, errno=%d, filename=%s)\n", __func__, __LINE__, ret,
            errno, info->filename);
     perror("Print tslib: ");
@@ -76,6 +76,9 @@ static ret_t tslib_dispatch_one_event(run_info_t* info) {
 
     return RET_OK;
   }
+
+  if (ret != 1)
+      return RET_OK;
 
   req->event.type = EVT_NONE;
   req->event.time = time_now_ms();
