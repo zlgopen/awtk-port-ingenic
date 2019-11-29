@@ -56,7 +56,7 @@ in this Software without prior written authorization from The Open Group.
 */
 
 #define XtCLineWidth "LineWidth"
-#define XtCStipple "Stipple"
+#define XtCStipple "XtCStipple"
 
 #define XtNlineWidth "lineWidth"
 #define XtNstipple "stipple"

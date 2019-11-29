@@ -66,7 +66,7 @@ in this Software without prior written authorization from the X Consortium.
 */
 
 #define XtCLineWidth "LineWidth"
-#define XtCStipple "Stipple"
+#define XtCStipple "XtCStipple"
 
 #define XtNlineWidth "lineWidth"
 #define XtNstipple "stipple"

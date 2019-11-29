@@ -30,12 +30,12 @@ in this Software without prior written authorization from the X Consortium.
  * SmeLine.h - Public Header file for SmeLine object.
  *
  * This is the public header file for the Athena SmeLine object.
- * It is intended to be used with the simple menu widget.  
+ * It is intended to be used with the simple menu widget.
  *
  * Date:    April 3, 1989
  *
  * By:      Chris D. Peterson
- *          MIT X Consortium 
+ *          MIT X Consortium
  *          kit@expo.lcs.mit.edu
  */
 
@@ -66,7 +66,7 @@ in this Software without prior written authorization from the X Consortium.
 */
 
 #define XtCLineWidth "LineWidth"
-#define XtCStipple "Stipple"
+#define XtCStipple "XtCStipple"
 
 #define XtNlineWidth "lineWidth"
 #define XtNstipple "stipple"
