@@ -6,10 +6,7 @@
 
 [awtk-port-ingenic](https://github.com/zlgopen/awtk-port-ingenic)是君正对AWTK在mips-linux上的移植。
 
-本项目仅在原生awtk-linux-fb的基础上修改了以下文件,
-    awtk-port/lcd_linux_fb.c
-    awtk_config.py
-并提供了tslib环境 3rd
+本项目仅在原生awtk-linux-fb的基础上修改了awtk-port/lcd_linux_fb.c、awtk_config.py，并提供了tslib环境 3rd
 
 本项目以ZLG周立功 linux开发套件 君正x1000 x1830开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
 君正商务邮箱:sale@ingenic.com
