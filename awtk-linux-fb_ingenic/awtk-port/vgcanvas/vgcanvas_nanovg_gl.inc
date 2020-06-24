@@ -1,0 +1,237 @@
+﻿#include "tkc/utils.h"
+
+static ret_t vgcanvas_nanovg_reinit(vgcanvas_t* vg, uint32_t w, uint32_t h, uint32_t stride,
+                                    bitmap_format_t format, void* data) {
+  (void)vg;
+  (void)w;
+  (void)h;
+  (void)format;
+  (void)data;
+  return RET_OK;
+}
+
+static inline void vgcanvas_nanovg_set_offline_fb(vgcanvas_nanovg_t* canvas, uint32_t w,
+                                                  uint32_t h) {
+  GLint default_fbo = 0;
+  vgcanvas_nanovg_offline_fb_t* offline_fb = canvas->offline_fb;
+  if (offline_fb != NULL) {
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &default_fbo);
+
+    if (offline_fb->width != w || offline_fb->height != h) {
+      vgcanvas_destroy_offline_fb(canvas->offline_fb);
+      canvas->offline_fb = vgcanvas_create_offline_fb(w, h);
+      offline_fb = canvas->offline_fb;
+    }
+
+    if (offline_fb != NULL) {
+      offline_fb->last_fbo = (GLuint)default_fbo;
+      glBindFramebuffer(GL_FRAMEBUFFER, offline_fb->fbo);
+      glViewport(0, 0, w, h);
+      // 去除这两行注释就可以显示脏矩形的工作原理。
+      // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+      // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
+  }
+}
+
+static inline void vgcanvas_nanovg_offline_fb_flush(vgcanvas_nanovg_t* canvas) {
+  system_info_t* info = system_info();
+  vgcanvas_nanovg_offline_fb_t* offline_fb = canvas->offline_fb;
+  vgcanvas_nanovg_screen_shader_info_t* shader_info = canvas->shader_program;
+  if (offline_fb != NULL && shader_info != NULL) {
+    glBindFramebuffer(GL_FRAMEBUFFER, offline_fb->last_fbo);
+
+    lcd_orientation_t orientation = info->lcd_orientation;
+    int w = info->lcd_w;
+    int h = info->lcd_h;
+#ifdef WITH_JZGPU
+    if (orientation == LCD_ORIENTATION_90 || orientation == LCD_ORIENTATION_270) {
+      w = info->lcd_h;
+      h = info->lcd_w;
+    }
+#endif
+
+    glViewport(0, 0, w * info->device_pixel_ratio,
+               h * info->device_pixel_ratio);
+
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    glUseProgram(shader_info->program_object);
+
+#if defined NANOVG_GL3
+    glBindVertexArray(shader_info->vao);
+#endif
+
+    glBindBuffer(GL_ARRAY_BUFFER, shader_info->vboIds[0]);
+    glVertexAttribPointer(shader_info->position_loc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+    glEnableVertexAttribArray(shader_info->position_loc);
+
+    glBindBuffer(GL_ARRAY_BUFFER, shader_info->vboIds[1]);
+    glVertexAttribPointer(shader_info->coord_loc, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
+    glEnableVertexAttribArray(shader_info->coord_loc);
+
+    // Bind the texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, offline_fb->textureId);
+    glUniform1i(shader_info->screentexture_loc, 0);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, shader_info->vboIds[2]);
+    glDrawElements(GL_TRIANGLES, sizeof(shader_info->indexs) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
+    glDisableVertexAttribArray(shader_info->position_loc);
+    glDisableVertexAttribArray(shader_info->coord_loc);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+#if defined NANOVG_GL3
+    glBindVertexArray(0);
+#endif
+  }
+}
+
+static ret_t vgcanvas_nanovg_begin_frame(vgcanvas_t* vgcanvas, rect_t* dirty_rect) {
+  vgcanvas_nanovg_t* canvas = (vgcanvas_nanovg_t*)vgcanvas;
+  NVGcontext* vg = canvas->vg;
+
+  glViewport(0, 0, vgcanvas->w, vgcanvas->h);
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+  vgcanvas_nanovg_set_offline_fb(canvas, vgcanvas->w * vgcanvas->ratio,
+                                 vgcanvas->h * vgcanvas->ratio);
+  if (dirty_rect != NULL) {
+    /* 这里给 x y 各减一，给 w h 各加二，是对应 canvas 的 canvas_begin_frame 中的 "for vgcanvas anti alias" */
+    canvas->base.dirty_rect =
+        rect_init(dirty_rect->x - 1, dirty_rect->y - 1, dirty_rect->w + 2, dirty_rect->h + 2);
+    canvas->base.dirty_rect.x = canvas->base.dirty_rect.x >= 0 ? canvas->base.dirty_rect.x : 0;
+    canvas->base.dirty_rect.y = canvas->base.dirty_rect.y >= 0 ? canvas->base.dirty_rect.y : 0;
+  } else {
+    canvas->base.dirty_rect = rect_init(0, 0, vgcanvas->w, vgcanvas->h);
+  }
+  nvgBeginFrame(vg, vgcanvas->w, vgcanvas->h, vgcanvas->ratio);
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_end_frame(vgcanvas_t* vgcanvas) {
+  vgcanvas_nanovg_t* canvas = (vgcanvas_nanovg_t*)vgcanvas;
+  NVGcontext* vg = canvas->vg;
+
+  nvgEndFrame(vg);
+
+  vgcanvas_nanovg_offline_fb_flush(canvas);
+
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_create_fbo(vgcanvas_t* vgcanvas, framebuffer_object_t* fbo) {
+  NVGLUframebuffer* handle = NULL;
+  NVGcontext* vg = ((vgcanvas_nanovg_t*)vgcanvas)->vg;
+
+  handle = nvgluCreateFramebuffer(vg, (int)(vgcanvas->w * vgcanvas->ratio),
+                                  (int)(vgcanvas->h * vgcanvas->ratio), 0);
+  return_value_if_fail(handle != NULL, RET_FAIL);
+
+  fbo->w = vgcanvas->w;
+  fbo->h = vgcanvas->h;
+  fbo->handle = handle;
+  fbo->id = handle->image;
+  fbo->ratio = vgcanvas->ratio;
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_destroy_fbo(vgcanvas_t* vgcanvas, framebuffer_object_t* fbo) {
+  NVGLUframebuffer* handle = (NVGLUframebuffer*)fbo->handle;
+  nvgluDeleteFramebuffer(handle);
+  (void)vgcanvas;
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_bind_fbo(vgcanvas_t* vgcanvas, framebuffer_object_t* fbo) {
+  NVGcontext* vg = ((vgcanvas_nanovg_t*)vgcanvas)->vg;
+  NVGLUframebuffer* handle = (NVGLUframebuffer*)fbo->handle;
+  vgcanvas->dirty_rect = rect_init(0, 0, fbo->w, fbo->h);
+  nvgluBindFramebuffer(handle);
+  glClearColor(0, 0, 0, 0);
+  glViewport(0, 0, fbo->w * fbo->ratio, fbo->h * fbo->ratio);
+  glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+  nvgBeginFrame(vg, fbo->w, fbo->h, fbo->ratio);
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_unbind_fbo(vgcanvas_t* vgcanvas, framebuffer_object_t* fbo) {
+  NVGcontext* vg = ((vgcanvas_nanovg_t*)vgcanvas)->vg;
+
+  nvgEndFrame(vg);
+  nvgluBindFramebuffer(NULL);
+
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_fbo_to_bitmap(vgcanvas_t* vgcanvas, framebuffer_object_t* fbo,
+                                           bitmap_t* img, rect_t* r) {
+  uint32_t x = 0;
+  uint32_t y = 0;
+  uint32_t height = 0;
+  uint32_t offset = 0;
+  uint8_t* p = NULL;
+  uint8_t* data = NULL;
+  uint8_t* img_data = NULL;
+  NVGcontext* vg = ((vgcanvas_nanovg_t*)vgcanvas)->vg;
+
+  NVGLUframebuffer* handle = (NVGLUframebuffer*)fbo->handle;
+  nvgluBindFramebuffer(handle);
+  data = TKMEM_ZALLOCN(uint8_t, img->h * img->line_length);
+  img_data = (uint8_t*)bitmap_lock_buffer_for_write(img);
+  height = fbo->h * fbo->ratio;
+  if (r != NULL) {
+    x = r->x;
+    y = r->y;
+  }
+
+  /* 因为 opengles 的原点坐标为左下角，所以需要把 AWTK 的坐标（AWTK 是右上角为原点的坐标系）转换为左下角为原点的坐标系*/
+  nvgluReadCurrentFramebufferData(x, height - img->h - y, img->w, img->h, fbo->w * fbo->ratio,
+                                  height, data);
+
+  p = data + ((img->h - 1) * img->line_length);
+
+  /* 图像数据垂直翻转 */
+  while (TRUE) {
+    tk_memcpy32((uint32_t*)img_data, (uint32_t*)p, img->w);
+    if (p == data) {
+      break;
+    }
+    p -= img->line_length;
+    img_data += img->line_length;
+  }
+
+  bitmap_unlock_buffer(img);
+
+  nvgluBindFramebuffer(NULL);
+  TKMEM_FREE(data);
+  return RET_OK;
+}
+
+static ret_t vgcanvas_nanovg_destroy(vgcanvas_t* vgcanvas) {
+  vgcanvas_nanovg_t* canvas = (vgcanvas_nanovg_t*)vgcanvas;
+  NVGcontext* vg = canvas->vg;
+
+#if defined(WITH_NANOVG_GL3)
+  nvgDeleteGL3(vg);
+#elif defined(WITH_NANOVG_GLES2)
+  nvgDeleteGLES2(vg);
+#elif defined(WITH_NANOVG_GLES3)
+  nvgDeleteGLES3(vg);
+#endif
+
+  TKMEM_FREE(canvas->offline_fb);
+  TKMEM_FREE(canvas->shader_program);
+  TKMEM_FREE(vgcanvas);
+
+  return RET_OK;
+}

@@ -7,7 +7,7 @@ AWTK port for Ingenic
 
 [awtk-port-ingenic](https://github.com/zlgopen/awtk-port-ingenic)是君正对AWTK在mips-linux上的移植。
 
-本项目以ZLG周立功 linux开发套件 君正x1000 x1830开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
+本项目以ZLG周立功 linux开发套件 君正x1000 x1830 m200开发板 为载体移植，其它开发板可能要做些修改，有问题请请创建issue。
 君正商务邮箱:sale@ingenic.com
 
 ## 使用方法
@@ -28,11 +28,23 @@ cd awtk-linux-fb_ingenic
 export COMPILER_PATH=/home/user/platform/prebuilts/toolchains/mips-gcc520-glibc222
 ```
 
-* 3.编辑 awtk_config.py 设置编译模式
+* 3.调整awtk代码 设置编译模式
+
+将diff文件下的文件配置到awtk中
 
 ```
-在x1000开发环境使用CPU绘制时 ：NANOVG_BACKEND='AGGE'
-在x1830开发环境使用CPU绘制时 ：NANOVG_BACKEND='AGGE' BOARD_PLATFORM= 'x1830'
+cp diff/graphic_buffer_jzgpu.c ../awtk/src/graphic_buffer/
+cd ../awtk
+git apply ../awtk-linux-fb_ingenic/diff/graphic.diff
+cd -;
+```
+
+通过配置环境变量，设置编译模式
+
+```
+在x1000开发环境使用CPU绘制时 ：unset AWTK_ACCEL
+在x1830开发环境使用CPU绘制时 ：export AWTK_ACCEL=X1830_MXU
+在x1830开发环境使用CPU绘制时 ：export AWTK_ACCEL=M200_GPU2D
 ```
 
 * 4.编辑 3rd/etc/profile 修改输入设备的文件名
@@ -69,14 +81,14 @@ scons APP=../awtk-examples/HelloWorld-Demo
 对于内置的 washing_machine 例子
 
 ```
-./release.sh WashingMachine
+./release.sh WashingMachine/ washing_machine
 ```
 
 对于其他 Demo，需要加入资源文件夹参数，指向应用程序 assets 的父目录
 
 ```
-./release.sh ../awtk-examples/HelloWorld-Demo/res
-./release.sh ../awtk-examples/Chart-Demo/res_800_480
+sh ./release.sh ../awtk-examples/HelloWorld-Demo/res demo
+sh ./release.sh ../awtk-examples/Chart-Demo/res_800_480 demo
 ```
 
 * 7.运行

@@ -1,0 +1,19 @@
+diff --git a/src/SConscript b/src/SConscript
+index c91bccc..44ae522 100644
+--- a/src/SConscript
++++ b/src/SConscript
+@@ -22,9 +22,12 @@ BASE_SOURCES=Glob('layouters/*.c') + \
+   Glob('misc/*.cpp') + \
+   Glob('window_animators/*.c') + \
+   Glob('dialog_highlighters/*.c') + \
+-  Glob('window_manager/window_manager_default.c') 
++  Glob('window_manager/window_manager_default.c')
+ 
+-BASE_SOURCES += Glob('graphic_buffer/graphic_buffer_default.c')
++if GRAPHIC_BUFFER == 'jzgpu':
++    BASE_SOURCES += Glob('graphic_buffer/graphic_buffer_jzgpu.c')
++else:
++    BASE_SOURCES += Glob('graphic_buffer/graphic_buffer_default.c')
+ 
+ if NATIVE_WINDOW == 'sdl':
+   BASE_SOURCES += Glob('native_window/native_window_sdl.c')
