@@ -15,6 +15,7 @@ TK_3RD_ROOT      = joinPath(TK_ROOT, '3rd')
 GTEST_ROOT       = joinPath(TK_ROOT, '3rd/gtest/googletest')
 
 BUILD_DIR        = joinPath(TK_LINUX_FB_ROOT, 'build')
+BUILD_3RD_LIB_DIR= joinPath(TK_LINUX_FB_ROOT, '3rd/libs')
 BIN_DIR          = joinPath(BUILD_DIR, 'bin')
 LIB_DIR          = joinPath(BUILD_DIR, 'lib')
 VAR_DIR          = joinPath(BUILD_DIR, 'var')
@@ -55,7 +56,7 @@ elif INPUT_ENGINE == 'null' :
 OS_LIBS=[]
 OS_LIBPATH=[]
 OS_CPPPATH=[]
-OS_LINKFLAGS='-Wl,-rpath-link,3rd/libs'
+OS_LINKFLAGS=' -Wl,-rpath=' + BUILD_3RD_LIB_DIR + ' '
 OS_SUBSYSTEM_CONSOLE=''
 OS_SUBSYSTEM_WINDOWS=''
 OS_FLAGS='-Wall -Os'
