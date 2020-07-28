@@ -98,7 +98,6 @@ sh ./release.sh ../awtk-examples/Chart-Demo/res_800_480 demo
 ```
 把3rd/etc内所有文件上传到开发板/etc内
 把3rd/libs内所有文件上传到开发板/usr/lib内
-把awtk-port-libs内所有文件上传到开发板/usr/lib内
 在开发板内执行sync命令
 重启开发板
 ```
