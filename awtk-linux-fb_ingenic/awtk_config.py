@@ -39,7 +39,7 @@ else:
 COMMON_CCFLAGS=' -DHAS_STD_MALLOC -DWITH_UNICODE_BREAK -DHAS_STDIO -DHAS_FAST_MEMCPY -DWITH_VGCANVAS'
 COMMON_CCFLAGS=COMMON_CCFLAGS+' -DWITH_ASSET_LOADER -DWITH_FS_RES -D_FILE_OFFSET_BITS=64'
 
-COMMON_CCFLAGS=COMMON_CCFLAGS+' -DSTBTT_STATIC -DSTB_IMAGE_STATIC -DWITH_STB_IMAGE -DWITH_STB_FONT '
+COMMON_CCFLAGS=COMMON_CCFLAGS+' -DSTBTT_STATIC -DSTB_IMAGE_STATIC -DWITH_STB_IMAGE -DWITH_STB_FONT -DWITH_TEXT_BIDI=1 '
 COMMON_CCFLAGS=COMMON_CCFLAGS+' -DWITH_WIDGET_TYPE_CHECK'
 
 if INPUT_ENGINE == 't9':
@@ -68,7 +68,7 @@ TSLIB_LIB_DIR=joinPath(TK_LINUX_FB_ROOT, '3rd/libs')
 TOOLS_PREFIX=os.getenv("COMPILER_PATH")+'/bin/mips-linux-gnu-'
 
 #-DHAS_STDIO ##if print log
-LIBS =['awtk_global', 'extwidgets', 'widgets', 'awtk_linux_fb', 'base', 'awtk_linux_fb', 'gpinyin', 'streams', 'conf_io', 'compressors', 'miniz', 'ubjson', 'tkc', 'linebreak']
+LIBS =['awtk_global', 'extwidgets', 'widgets', 'awtk_linux_fb', 'base', 'awtk_linux_fb', 'gpinyin', 'streams', 'conf_io', 'compressors', 'miniz', 'ubjson', 'tkc', 'linebreak','fribidi']
 OS_LIBS = ['stdc++', 'pthread', 'rt', 'm', 'dl']
 BOARD_PLATFORM=''
 if NANOVG_BACKEND == 'AGGE':
@@ -137,6 +137,7 @@ CPPPATH=[TK_ROOT,
   joinPath(TK_3RD_ROOT, 'agg/include'),
   joinPath(TK_3RD_ROOT, 'nanovg'),
   joinPath(TK_3RD_ROOT, 'nanovg/gl'),
+  joinPath(TK_3RD_ROOT, 'fribidi'),
   joinPath(TK_3RD_ROOT, 'nanovg/base'),
   joinPath(TK_3RD_ROOT, 'nanovg/agge'),
   joinPath(TK_3RD_ROOT, 'agge/src'),
